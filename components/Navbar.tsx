@@ -1,31 +1,68 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef, useState } from "react";
+import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
+import MagneticButton from "@/components/ui/MagneticButton";
+
+const links = ["Work", "Services", "About", "Contact"];
 
 export default function Navbar() {
+  const navRef = useRef<HTMLElement>(null);
+  const [scrolled, setScrolled] = useState(false);
+
+  useIsomorphicLayoutEffect(() => {
+    const st = ScrollTrigger.create({
+      start: "top -60",
+      end: "max",
+      onUpdate: (self) => setScrolled(self.progress > 0),
+    });
+
+    gsap.from(navRef.current, {
+      y: -30,
+      opacity: 0,
+      duration: 1,
+      ease: "power3.out",
+      delay: 0.2,
+    });
+
+    return () => st.kill();
+  }, []);
+
   return (
-    <motion.header
-      initial={{ y: -20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-8 py-5"
+    <nav
+      ref={navRef}
+      className={`fixed top-0 inset-x-0 z-50 flex items-center justify-between px-[5vw] py-5 transition-all duration-500 ${
+        scrolled
+          ? "bg-[#080808]/90 backdrop-blur-md border-b border-white/5"
+          : ""
+      }`}
     >
-      <span className="font-display text-xl font-bold tracking-tight text-white">
-        utopik<span className="text-violet-400">.</span>
-      </span>
-
-      <nav className="hidden md:flex items-center gap-8 text-sm text-white/60">
-        <a href="#about" className="hover:text-white transition-colors">About</a>
-        <a href="#features" className="hover:text-white transition-colors">Features</a>
-        <a href="#work" className="hover:text-white transition-colors">Work</a>
-      </nav>
-
-      <a
-        href="#contact"
-        className="rounded-full border border-white/20 px-5 py-2 text-sm text-white/80 hover:bg-white/10 hover:text-white transition-all"
-      >
-        Get in touch
+      <a href="#" className="font-display text-lg font-black tracking-tight text-white">
+        UTOPIK<span className="neon-cyan text-[#00F5FF]">.</span>
       </a>
-    </motion.header>
+
+      <div className="hidden md:flex items-center gap-10">
+        {links.map((l) => (
+          <a
+            key={l}
+            href={`#${l.toLowerCase()}`}
+            className="text-xs tracking-widest uppercase text-white/40 hover:text-white transition-colors duration-300"
+          >
+            {l}
+          </a>
+        ))}
+      </div>
+
+      <MagneticButton>
+        <a
+          href="#contact"
+          className="group relative overflow-hidden border border-[#7B2FFF] px-6 py-2.5 text-xs tracking-widest uppercase text-white transition-all duration-300 hover:border-[#00F5FF]"
+        >
+          <span className="relative z-10">Start a project</span>
+          <span className="absolute inset-0 bg-[#7B2FFF] translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+        </a>
+      </MagneticButton>
+    </nav>
   );
 }
