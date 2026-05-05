@@ -45,19 +45,21 @@ export default function Navbar() {
         initial={{ x: -24, opacity: 0, scale: 0.8 }}
         animate={{ x: 0, opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, delay: 0.35, ease: "easeOut" }}
-        whileHover={{ filter: "drop-shadow(0 0 12px rgba(123,47,255,0.85))" }}
+        whileHover={{ filter: "drop-shadow(0 0 10px rgba(123,47,255,0.75))" }}
         style={{ display: "inline-block" }}
       >
-        {/* Container defines the crop window — adjust width/height to taste */}
-        <div className="relative overflow-hidden" style={{ width: "36px", height: "36px" }}>
+        <motion.div
+          animate={{ y: [0, -4, 0] }}
+          transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+        >
           <Image
             src="/logo.png"
             alt="Utopik"
-            fill
+            width={40}
+            height={40}
             priority
-            className="object-cover object-top"
           />
-        </div>
+        </motion.div>
       </motion.a>
 
       <div className="hidden md:flex items-center gap-10">
