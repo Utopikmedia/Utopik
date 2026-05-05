@@ -1,6 +1,8 @@
 "use client";
 
 import { useRef, useEffect } from "react";
+import Image from "next/image";
+import { motion } from "framer-motion";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import MagneticButton from "@/components/ui/MagneticButton";
@@ -149,6 +151,37 @@ export default function Hero() {
           </MagneticButton>
         </div>
       </div>
+
+      {/* Floating logo */}
+      <motion.div
+        className="absolute top-1/2 right-[8vw] -translate-y-1/2 hidden lg:block"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, delay: 0.9, ease: "easeOut" }}
+        whileHover={{ filter: "drop-shadow(0 0 24px rgba(123,47,255,0.9))" }}
+      >
+        <motion.div
+          animate={{ y: [0, -16, 0] }}
+          transition={{ duration: 4, delay: 1.9, repeat: Infinity, ease: "easeInOut" }}
+        >
+          {/* Container defines the crop window — adjust width/height to taste */}
+          <div
+            className="relative overflow-hidden opacity-80"
+            style={{
+              width:  "clamp(90px, 12vw, 150px)",
+              height: "clamp(90px, 12vw, 150px)",
+            }}
+          >
+            <Image
+              src="/logo.png"
+              alt="Utopik"
+              fill
+              priority
+              className="object-cover object-top"
+            />
+          </div>
+        </motion.div>
+      </motion.div>
 
       {/* Scroll indicator */}
       <div className="hero-scroll absolute bottom-10 right-[8vw] flex flex-col items-end gap-3">

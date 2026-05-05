@@ -1,6 +1,8 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Image from "next/image";
+import { motion } from "framer-motion";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import MagneticButton from "@/components/ui/MagneticButton";
@@ -38,9 +40,25 @@ export default function Navbar() {
           : ""
       }`}
     >
-      <a href="#" className="font-display text-lg font-black tracking-tight text-white">
-        UTOPIK<span className="neon-cyan text-[#00F5FF]">.</span>
-      </a>
+      <motion.a
+        href="#"
+        initial={{ x: -24, opacity: 0, scale: 0.8 }}
+        animate={{ x: 0, opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, delay: 0.35, ease: "easeOut" }}
+        whileHover={{ filter: "drop-shadow(0 0 12px rgba(123,47,255,0.85))" }}
+        style={{ display: "inline-block" }}
+      >
+        {/* Container defines the crop window — adjust width/height to taste */}
+        <div className="relative overflow-hidden" style={{ width: "36px", height: "36px" }}>
+          <Image
+            src="/logo.png"
+            alt="Utopik"
+            fill
+            priority
+            className="object-cover object-top"
+          />
+        </div>
+      </motion.a>
 
       <div className="hidden md:flex items-center gap-10">
         {links.map((l) => (
