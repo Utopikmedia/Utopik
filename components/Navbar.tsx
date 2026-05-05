@@ -55,9 +55,10 @@ export default function Navbar() {
           <Image
             src="/logo.png"
             alt="Utopik"
-            width={40}
-            height={40}
+            width={333}
+            height={400}
             priority
+            style={{ width: "auto", height: "40px" }}
           />
         </motion.div>
       </motion.a>
