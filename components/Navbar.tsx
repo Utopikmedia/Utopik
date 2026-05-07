@@ -2,12 +2,11 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import MagneticButton from "@/components/ui/MagneticButton";
 
 const links = [
   { label: "Accueil",   href: "#" },
   { label: "Services",  href: "#services" },
-  { label: "Portfolio", href: "#work" },
+  { label: "Portfolio", href: "#portfolio" },
   { label: "Contact",   href: "#contact" },
 ];
 
@@ -17,12 +16,12 @@ export default function Navbar() {
       initial={{ opacity: 0, y: -16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, ease: "easeOut" }}
-      className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-[5vw] py-4 bg-[#080808]/80 backdrop-blur-md border-b border-white/[0.06]"
+      className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-[5vw] py-4 bg-[#080808]/80 backdrop-blur-md border-b border-white/[0.05]"
     >
       {/* Logo */}
       <motion.a
         href="#"
-        whileHover={{ filter: "drop-shadow(0 0 10px rgba(123,47,255,0.8))" }}
+        whileHover={{ filter: "drop-shadow(0 0 12px rgba(43,111,212,0.8))" }}
         style={{ display: "inline-block" }}
       >
         <motion.div
@@ -31,7 +30,7 @@ export default function Navbar() {
         >
           <Image
             src="/logo.png"
-            alt="Utopik"
+            alt="Utopik Média"
             width={333}
             height={400}
             priority
@@ -49,7 +48,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 + i * 0.08, ease: "easeOut" }}
-            className="text-xs tracking-widest uppercase text-white/50 hover:text-white transition-colors duration-300"
+            className="text-xs tracking-widest uppercase text-white/45 hover:text-white transition-colors duration-300"
           >
             {l.label}
           </motion.a>
@@ -62,15 +61,21 @@ export default function Navbar() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.55, ease: "easeOut" }}
       >
-        <MagneticButton>
-          <a
-            href="#contact"
-            className="group relative overflow-hidden border border-[#7B2FFF] px-6 py-2.5 text-xs tracking-widest uppercase text-white transition-colors duration-300 hover:border-[#00F5FF]"
-          >
-            <span className="relative z-10">Démarrer un projet</span>
-            <span className="absolute inset-0 bg-[#7B2FFF] translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-          </a>
-        </MagneticButton>
+        <a
+          href="#contact"
+          className="hidden md:inline-block text-xs tracking-widest uppercase text-white/45 hover:text-white px-6 py-2.5 transition-all duration-300"
+          style={{ border: "1px solid rgba(43,111,212,0.35)" }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(43,111,212,0.8)";
+            (e.currentTarget as HTMLAnchorElement).style.color = "#fff";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(43,111,212,0.35)";
+            (e.currentTarget as HTMLAnchorElement).style.color = "";
+          }}
+        >
+          Démarrer un projet
+        </a>
       </motion.div>
     </motion.nav>
   );

@@ -9,19 +9,20 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-sans)"],
+        sans:    ["var(--font-sans)"],
         display: ["var(--font-syne)"],
       },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        border: "var(--border)",
-        input: "var(--input)",
-        ring: "var(--ring)",
+        border:     "var(--border)",
+        input:      "var(--input)",
+        ring:       "var(--ring)",
         brand: {
-          bg:     "#080808",
-          violet: "#7B2FFF",
-          cyan:   "#00F5FF",
+          bg:       "#080808",
+          electric: "#2B6FD4",
+          light:    "#7EB3F5",
+          deep:     "#1A3F8F",
         },
         primary:     { DEFAULT: "var(--primary)",     foreground: "var(--primary-foreground)"   },
         secondary:   { DEFAULT: "var(--secondary)",   foreground: "var(--secondary-foreground)" },

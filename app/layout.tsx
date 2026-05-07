@@ -14,8 +14,8 @@ const syne = Syne({
 });
 
 export const metadata: Metadata = {
-  title: "Utopik — Imagine the Future",
-  description: "Utopik is a creative studio building the next generation of digital experiences.",
+  title: "Utopik Média — Création de contenu · Saguenay-Lac-Saint-Jean",
+  description: "Agence créative spécialisée en vidéo, photographie et stratégie de contenu au Saguenay-Lac-Saint-Jean.",
 };
 
 export default function RootLayout({
@@ -24,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn(inter.variable, syne.variable)}>
+    <html lang="fr" className={cn(inter.variable, syne.variable)}>
       <body className="antialiased">
         {children}
       </body>

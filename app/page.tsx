@@ -1,9 +1,8 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import Marquee from "@/components/Marquee";
-import Stats from "@/components/Stats";
-import Work from "@/components/Work";
 import Services from "@/components/Services";
+import Portfolio from "@/components/Portfolio";
+import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -11,10 +10,9 @@ export default function Home() {
     <main className="bg-brand-bg">
       <Navbar />
       <Hero />
-      <Marquee />
-      <Stats />
-      <Work />
       <Services />
+      <Portfolio />
+      <Contact />
       <Footer />
     </main>
   );
