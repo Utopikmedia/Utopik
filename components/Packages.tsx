@@ -13,7 +13,7 @@ const features = [
 
 const packages = [
   {
-    name: "Croissance",
+    name: "Économique",
     price: "599$",
     badge: "Pour démarrer",
     badgeFeatured: false,
@@ -26,7 +26,7 @@ const packages = [
     featured: false,
   },
   {
-    name: "Omniprésence",
+    name: "Croissance",
     price: "1 799$",
     badge: "Le plus populaire",
     badgeFeatured: true,
@@ -169,7 +169,7 @@ export default function Packages() {
 
             {/* Card body */}
             <div
-              className={`relative flex flex-col h-full ${pkg.featured ? "pt-8 pb-10 px-8" : "pt-7 pb-8 px-7"}`}
+              className="relative flex flex-col h-full p-7"
               style={{
                 background: pkg.featured
                   ? "linear-gradient(160deg, #0a1628 0%, #080808 60%)"
@@ -177,11 +177,11 @@ export default function Packages() {
                 border: pkg.featured
                   ? "1px solid rgba(126,179,245,0.35)"
                   : "1px solid rgba(43,111,212,0.15)",
-                minHeight: pkg.featured ? "520px" : "460px",
+                minHeight: pkg.featured ? "500px" : "460px",
               }}
             >
               {/* Badge */}
-              <div className="mb-6">
+              <div className="mb-5">
                 <span
                   className="inline-block text-[10px] tracking-widest uppercase px-3 py-1"
                   style={{
@@ -199,18 +199,19 @@ export default function Packages() {
 
               {/* Name */}
               <h3
-                className="font-display font-black text-white mb-5 leading-none"
-                style={{ fontSize: "clamp(22px, 2vw, 28px)" }}
+                className="font-display font-black text-white mb-3 leading-tight"
+                style={{ fontSize: "clamp(20px, 1.6vw, 24px)" }}
               >
                 {pkg.name}
               </h3>
 
               {/* Price */}
-              <div className="mb-6">
+              <div className="mb-5">
                 <span
                   className="font-display font-black leading-none"
                   style={{
-                    fontSize: pkg.featured ? "clamp(42px, 4vw, 58px)" : "clamp(36px, 3.2vw, 48px)",
+                    display: "inline-block",
+                    fontSize: "clamp(28px, 2.2vw, 40px)",
                     background: pkg.featured
                       ? "linear-gradient(135deg, #ffffff 30%, #7EB3F5 100%)"
                       : "linear-gradient(135deg, #c8d8f0 0%, #7EB3F5 100%)",
@@ -222,7 +223,7 @@ export default function Packages() {
                   {pkg.price}
                 </span>
                 <div
-                  className="mt-2 h-px w-10"
+                  className="mt-2 h-px w-8"
                   style={{
                     background: pkg.featured
                       ? "linear-gradient(90deg, #7EB3F5, transparent)"
@@ -232,13 +233,13 @@ export default function Packages() {
               </div>
 
               {/* Description */}
-              <p className="text-white/30 text-sm leading-relaxed mb-8 flex-1">
+              <p className="text-white/30 text-sm leading-relaxed mb-6 flex-1">
                 {pkg.description}
               </p>
 
               {/* Differentiator highlight */}
               <div
-                className="mb-8 py-5 px-5"
+                className="mb-6 py-4 px-4"
                 style={{
                   background: "rgba(43,111,212,0.06)",
                   border: "1px solid rgba(43,111,212,0.12)",
