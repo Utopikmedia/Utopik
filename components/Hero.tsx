@@ -71,7 +71,7 @@ export default function Hero() {
           className="text-white/40 tracking-[0.22em] uppercase mb-12"
           style={{ fontSize: "clamp(11px, 1.4vw, 14px)" }}
         >
-          Création de contenu · Saguenay-Lac-Saint-Jean
+          La référence pour du contenu qui se démarque au Saguenay–Lac-Saint-Jean
         </motion.p>
 
         {/* CTAs */}
@@ -83,14 +83,14 @@ export default function Hero() {
         >
           {/* Primary CTA */}
           <a
-            href="#portfolio"
+            href="#packs"
             className="group relative overflow-hidden px-9 py-4 text-xs tracking-widest uppercase text-white transition-all duration-300"
             style={{
               background: "linear-gradient(135deg, #1A3F8F 0%, #2B6FD4 100%)",
               border: "1px solid rgba(126,179,245,0.3)",
             }}
           >
-            <span className="relative z-10">Voir nos projets</span>
+            <span className="relative z-10">Nos packs</span>
             <span
               className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
               style={{ background: "linear-gradient(135deg, #2B6FD4 0%, #7EB3F5 100%)" }}
