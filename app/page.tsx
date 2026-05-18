@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import PhoneShowcase from "@/components/PhoneShowcase";
 import Services from "@/components/Services";
 import Portfolio from "@/components/Portfolio";
 import Packages from "@/components/Packages";
@@ -11,6 +12,7 @@ export default function Home() {
     <main className="bg-brand-bg">
       <Navbar />
       <Hero />
+      <PhoneShowcase />
       <Services />
       <Portfolio />
       <Packages />
