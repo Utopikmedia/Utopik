@@ -29,81 +29,10 @@ const services = [
     icon: "📱",
     title: "Gestion des réseaux sociaux",
     description:
-      "Gestion de communauté, contenu natif, croissance organique. Votre présence, amplifiée.",
+      "Gestion de vos réseaux sociaux et de vos campagnes Meta Ads pour maximiser votre portée.",
     delay: 0.36,
   },
 ];
-
-/* ── Floating particle canvas ───────────────────────────────── */
-function Particles() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let animId: number;
-
-    interface Dot { x: number; y: number; r: number; vx: number; vy: number; alpha: number; }
-    const dots: Dot[] = [];
-
-    function resize() {
-      if (!canvas) return;
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-    }
-
-    function init() {
-      if (!canvas) return;
-      dots.length = 0;
-      for (let i = 0; i < 55; i++) {
-        dots.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          r: 0.6 + Math.random() * 1.6,
-          vx: (Math.random() - 0.5) * 0.18,
-          vy: (Math.random() - 0.5) * 0.18,
-          alpha: 0.08 + Math.random() * 0.22,
-        });
-      }
-    }
-
-    function draw() {
-      if (!canvas || !ctx) return;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      dots.forEach((d) => {
-        d.x += d.vx;
-        d.y += d.vy;
-        if (d.x < 0) d.x = canvas!.width;
-        if (d.x > canvas!.width) d.x = 0;
-        if (d.y < 0) d.y = canvas!.height;
-        if (d.y > canvas!.height) d.y = 0;
-        ctx.beginPath();
-        ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(126,179,245,${d.alpha})`;
-        ctx.fill();
-      });
-      animId = requestAnimationFrame(draw);
-    }
-
-    resize();
-    init();
-    draw();
-
-    const ro = new ResizeObserver(() => { resize(); init(); });
-    ro.observe(canvas);
-    return () => { cancelAnimationFrame(animId); ro.disconnect(); };
-  }, []);
-
-  return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 w-full h-full pointer-events-none"
-    />
-  );
-}
 
 /* ── Individual 3D card ─────────────────────────────────────── */
 function ServiceCard({
@@ -298,10 +227,7 @@ export default function Services() {
   }, [glitchControls]);
 
   return (
-    <section id="services" className="relative bg-brand-bg py-32 px-[8vw] overflow-hidden">
-
-      {/* ── Floating particles ── */}
-      <Particles />
+    <section id="services" className="relative py-32 px-[8vw] overflow-hidden">
 
       {/* ── Ambient glow ── */}
       <div

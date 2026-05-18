@@ -6,7 +6,7 @@ import ParticleCanvas from "@/components/ParticleCanvas";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-brand-bg">
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
 
       {/* Grid */}
       <div className="absolute inset-0 hero-grid" />

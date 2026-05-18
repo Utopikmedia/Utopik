@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Syne } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import GlobalParticles from "@/components/GlobalParticles";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -26,7 +27,12 @@ export default function RootLayout({
   return (
     <html lang="fr" className={cn(inter.variable, syne.variable)}>
       <body className="antialiased">
-        {children}
+        {/* Fixed particle canvas — sits behind all content */}
+        <GlobalParticles />
+        {/* All page content sits above the canvas */}
+        <div className="relative" style={{ zIndex: 1 }}>
+          {children}
+        </div>
       </body>
     </html>
   );

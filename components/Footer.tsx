@@ -2,7 +2,7 @@
 
 export default function Footer() {
   return (
-    <footer className="bg-brand-bg border-t border-white/5 px-[8vw] py-10">
+    <footer className="border-t border-white/5 px-[8vw] py-10">
       <div className="flex flex-col md:flex-row items-center justify-between gap-6">
         <span className="font-display text-base font-black text-white">
           UTOPIK<span className="text-brand-electric">.</span>MÉDIA

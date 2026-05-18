@@ -17,7 +17,7 @@ export default function Contact() {
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.15 }
     );
 
     items.forEach((el) => observer.observe(el));
@@ -25,50 +25,56 @@ export default function Contact() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="contact" className="bg-brand-bg py-32 px-[8vw] border-t border-white/5">
-      {/* Header */}
-      <div className="contact-reveal reveal flex items-center gap-4 mb-6">
+    <section ref={sectionRef} id="contact" className="py-32 px-[8vw] border-t border-white/5">
+
+      {/* Header tag */}
+      <div className="contact-reveal reveal flex items-center gap-4 mb-10">
         <span className="block w-8 h-px bg-brand-electric" />
         <span className="text-[11px] text-brand-electric tracking-[0.35em] uppercase">
-          05 — Contact
+          04 — Contact
         </span>
       </div>
 
+      {/* Title + subtitle stacked above the grid */}
+      <div className="mb-16">
+        <h2
+          className="contact-reveal reveal font-display font-black text-white leading-tight mb-6"
+          style={{ fontSize: "clamp(36px, 5.5vw, 72px)", transitionDelay: "0.08s" }}
+        >
+          Un projet personnalisé<br />
+          <span className="gradient-text">en tête&nbsp;?</span>
+        </h2>
+
+        <p
+          className="contact-reveal reveal text-white/35 text-sm leading-relaxed max-w-lg"
+          style={{ transitionDelay: "0.16s" }}
+        >
+          Chaque client est unique. Contactez-nous pour discuter
+          de votre projet sur mesure.
+        </p>
+      </div>
+
+      {/* Two-column: contact info + form */}
       <div className="grid lg:grid-cols-2 gap-16 items-start">
-        {/* Left: headline */}
-        <div>
-          <h2
-            className="contact-reveal reveal font-display font-black text-white leading-tight mb-8"
-            style={{ fontSize: "clamp(36px, 5.5vw, 72px)", transitionDelay: "0.1s" }}
-          >
-            Prêt à créer<br />
-            quelque chose<br />
-            <span className="gradient-text">d&apos;extraordinaire?</span>
-          </h2>
 
-          <p
-            className="contact-reveal reveal text-white/35 text-sm leading-relaxed max-w-sm mb-10"
-            style={{ transitionDelay: "0.2s" }}
+        {/* Left: contact info */}
+        <div
+          className="contact-reveal reveal flex flex-col gap-4"
+          style={{ transitionDelay: "0.24s" }}
+        >
+          <a
+            href="mailto:utopikmedia.ca@gmail.com"
+            className="text-brand-light/70 hover:text-white transition-colors duration-300 text-sm tracking-wide"
           >
-            Basés au Saguenay-Lac-Saint-Jean, on travaille avec des entrepreneurs,
-            des marques et des créateurs qui veulent une présence visuelle mémorable.
-          </p>
-
-          <div className="contact-reveal reveal flex flex-col gap-3" style={{ transitionDelay: "0.3s" }}>
-            <a
-              href="mailto:hello@utopik.media"
-              className="text-brand-light/70 hover:text-white transition-colors duration-300 text-sm tracking-wide"
-            >
-              hello@utopik.media
-            </a>
-            <span className="text-white/25 text-sm">Saguenay, Québec</span>
-          </div>
+            utopikmedia.ca@gmail.com
+          </a>
+          <span className="text-white/25 text-sm">Saguenay, Québec</span>
         </div>
 
         {/* Right: form */}
         <form
-          className="contact-reveal reveal flex flex-col gap-5"
-          style={{ transitionDelay: "0.15s" }}
+          className="contact-reveal reveal flex flex-col gap-6"
+          style={{ transitionDelay: "0.18s" }}
           onSubmit={(e) => e.preventDefault()}
         >
           <div className="grid sm:grid-cols-2 gap-5">
@@ -79,7 +85,7 @@ export default function Contact() {
               <input
                 type="text"
                 placeholder="Jean Tremblay"
-                className="w-full bg-transparent text-white text-sm px-4 py-3 outline-none placeholder-white/15 focus:border-brand-electric/60 transition-colors duration-300"
+                className="w-full bg-transparent text-white text-sm px-4 py-3 outline-none placeholder-white/15 transition-colors duration-300"
                 style={{ border: "1px solid rgba(43,111,212,0.2)" }}
               />
             </div>
@@ -90,7 +96,7 @@ export default function Contact() {
               <input
                 type="email"
                 placeholder="jean@entreprise.com"
-                className="w-full bg-transparent text-white text-sm px-4 py-3 outline-none placeholder-white/15 focus:border-brand-electric/60 transition-colors duration-300"
+                className="w-full bg-transparent text-white text-sm px-4 py-3 outline-none placeholder-white/15 transition-colors duration-300"
                 style={{ border: "1px solid rgba(43,111,212,0.2)" }}
               />
             </div>
@@ -98,19 +104,14 @@ export default function Contact() {
 
           <div>
             <label className="block text-[10px] tracking-widest uppercase text-white/30 mb-2">
-              Type de projet
+              Nom de l&apos;entreprise
             </label>
-            <select
-              className="w-full bg-[#080808] text-white/60 text-sm px-4 py-3 outline-none appearance-none cursor-pointer transition-colors duration-300"
+            <input
+              type="text"
+              placeholder="Votre entreprise..."
+              className="w-full bg-transparent text-white text-sm px-4 py-3 outline-none placeholder-white/15 transition-colors duration-300"
               style={{ border: "1px solid rgba(43,111,212,0.2)" }}
-            >
-              <option value="">Sélectionner...</option>
-              <option>Vidéo</option>
-              <option>Photographie</option>
-              <option>Stratégie de contenu</option>
-              <option>Réseaux sociaux</option>
-              <option>Autre</option>
-            </select>
+            />
           </div>
 
           <div>
@@ -120,7 +121,7 @@ export default function Contact() {
             <textarea
               rows={5}
               placeholder="Parlez-nous de votre projet..."
-              className="w-full bg-transparent text-white text-sm px-4 py-3 outline-none placeholder-white/15 resize-none focus:border-brand-electric/60 transition-colors duration-300"
+              className="w-full bg-transparent text-white text-sm px-4 py-3 outline-none placeholder-white/15 resize-none transition-colors duration-300"
               style={{ border: "1px solid rgba(43,111,212,0.2)" }}
             />
           </div>

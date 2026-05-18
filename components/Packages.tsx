@@ -33,6 +33,7 @@ const packages = [
     description: "La formule préférée de nos clients. Un flux constant de contenu qui installe votre autorité partout où vous apparaissez.",
     highlight: [
       "12 vidéos Reels",
+      "2 tournages de 2 à 4 heures",
     ],
     featured: true,
   },
@@ -44,6 +45,7 @@ const packages = [
     description: "Pour les marques qui refusent de passer inaperçues. Un volume de contenu qui domine votre marché.",
     highlight: [
       "30 vidéos Reels",
+      "5 tournages de 2 à 4 heures",
     ],
     featured: false,
   },
@@ -52,7 +54,7 @@ const packages = [
 
 export default function Packages() {
   return (
-    <section id="packs" className="bg-brand-bg py-32 px-[8vw] overflow-hidden">
+    <section id="packs" className="py-32 px-[8vw] overflow-hidden">
 
       {/* ── Header ── */}
       <motion.div
