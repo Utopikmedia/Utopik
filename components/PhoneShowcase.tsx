@@ -7,34 +7,33 @@ import { motion, useScroll, useTransform } from "framer-motion";
 export default function PhoneShowcase() {
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Scroll progress tied to when this section enters/leaves the viewport
+  // 3D entrance: driven by scroll progress as section enters viewport
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start end", "start 0.1"],
+    offset: ["start end", "start 0.15"],
   });
 
-  // 3D entrance: phone flies in from far away as section scrolls into view
-  const scale     = useTransform(scrollYProgress, [0, 1], [0.3, 1]);
-  const rotateY   = useTransform(scrollYProgress, [0, 1], [45, 0]);
-  const rotateX   = useTransform(scrollYProgress, [0, 1], [20, 0]);
-  const opacity   = useTransform(scrollYProgress, [0, 0.4], [0, 1]);
-  const translateY = useTransform(scrollYProgress, [0, 1], [80, 0]);
+  const scale    = useTransform(scrollYProgress, [0, 1], [0.3, 1]);
+  const rotateY  = useTransform(scrollYProgress, [0, 1], [45, 0]);
+  const rotateX  = useTransform(scrollYProgress, [0, 1], [20, 0]);
+  const opacity  = useTransform(scrollYProgress, [0, 0.35], [0, 1]);
+  const y        = useTransform(scrollYProgress, [0, 1], [60, 0]);
 
   return (
     <section
       ref={sectionRef}
-      className="relative bg-brand-bg overflow-visible py-24 px-[8vw]"
+      className="relative bg-brand-bg overflow-hidden py-24 px-[8vw]"
     >
-      {/* Blue glow behind phone */}
+      {/* Blue ambient glow — right side */}
       <div
-        className="absolute top-1/2 right-0 -translate-y-1/2 w-[700px] h-[700px] rounded-full pointer-events-none"
+        className="absolute top-1/2 right-0 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
         style={{
-          background: "radial-gradient(circle, rgba(43,111,212,0.13) 0%, transparent 65%)",
+          background: "radial-gradient(circle, rgba(43,111,212,0.14) 0%, transparent 65%)",
           filter: "blur(60px)",
         }}
       />
 
-      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center min-h-[600px]">
+      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
         {/* ── Left: text ── */}
         <motion.div
@@ -74,69 +73,41 @@ export default function PhoneShowcase() {
           </a>
         </motion.div>
 
-        {/* ── Right: hand + phone with 3D scroll animation ── */}
+        {/* ── Right: phone image with 3D scroll animation ── */}
         <div
-          className="order-1 lg:order-2 flex justify-center lg:justify-end items-center"
+          className="order-1 lg:order-2 flex justify-center lg:justify-end"
           style={{ perspective: "1200px" }}
         >
           <motion.div
-            style={{
-              scale,
-              rotateY,
-              rotateX,
-              opacity,
-              y: translateY,
-              transformStyle: "preserve-3d",
-            }}
+            style={{ scale, rotateY, rotateX, opacity, y, transformStyle: "preserve-3d" }}
             className="relative"
           >
-            {/* Glow behind phone image */}
+            {/* Glow behind image */}
             <div
               className="absolute inset-0 pointer-events-none"
               style={{
-                background: "radial-gradient(ellipse at 50% 60%, rgba(43,111,212,0.28) 0%, transparent 65%)",
-                filter: "blur(30px)",
-                transform: "scale(1.2)",
+                background: "radial-gradient(ellipse at 50% 60%, rgba(43,111,212,0.3) 0%, transparent 65%)",
+                filter: "blur(35px)",
+                transform: "scale(1.15)",
               }}
             />
 
-            {/* Hand + phone image */}
+            {/* TODO: Replace placeholder with YouTube embed when video is ready */}
             <Image
               src="/phone-hand.png"
-              alt="Main tenant un téléphone avec du contenu vidéo"
-              width={420}
-              height={700}
+              alt="Main tenant un téléphone"
+              width={612}
+              height={792}
               priority
               style={{
                 width: "auto",
                 height: "700px",
-                // Slightly overflow the right edge for drama on desktop
-                marginRight: "-6vw",
+                maxWidth: "100%",
+                display: "block",
                 position: "relative",
-                zIndex: 1,
-                filter: "drop-shadow(0 40px 80px rgba(0,0,0,0.7)) drop-shadow(0 0 40px rgba(43,111,212,0.2))",
+                filter: "drop-shadow(0 40px 80px rgba(0,0,0,0.8)) drop-shadow(0 0 40px rgba(43,111,212,0.25))",
               }}
-              className="hidden lg:block"
             />
-
-            {/* Mobile version — contained */}
-            <Image
-              src="/phone-hand.png"
-              alt="Main tenant un téléphone avec du contenu vidéo"
-              width={420}
-              height={700}
-              priority
-              style={{
-                width: "auto",
-                height: "440px",
-                position: "relative",
-                zIndex: 1,
-                filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.7))",
-              }}
-              className="block lg:hidden"
-            />
-
-            {/* TODO: Replace placeholder with YouTube embed when video is ready */}
           </motion.div>
         </div>
 
