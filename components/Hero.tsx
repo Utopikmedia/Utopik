@@ -1,8 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
-import ParticleCanvas from "@/components/ParticleCanvas";
+
+const ParticleCanvas = dynamic(() => import("@/components/ParticleCanvas"), {
+  ssr: false,
+});
 
 export default function Hero() {
   return (

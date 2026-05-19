@@ -6,6 +6,7 @@ interface Particle {
   angle: number;
   radius: number;
   speed: number;
+  targetSpeed: number;
   size: number;
   alpha: number;
   color: string;
@@ -16,6 +17,7 @@ const COLORS = ["#2B6FD4", "#7EB3F5", "#1A3F8F", "#5B9AEA", "#9EC8FF"];
 
 export default function ParticleCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animIdRef = useRef<number>(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -23,7 +25,6 @@ export default function ParticleCanvas() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    let animId: number;
     const particles: Particle[] = [];
 
     function resize() {
@@ -39,21 +40,24 @@ export default function ParticleCanvas() {
       const cy = canvas.height / 2;
       const maxRadius = Math.min(cx, cy) * 0.95;
 
-      // Three orbit layers: tight, mid, wide
+      // Three orbit layers: 80 total particles
       const layers = [
-        { count: 28, rMin: maxRadius * 0.28, rMax: maxRadius * 0.42, speedMul: 1.0 },
-        { count: 22, rMin: maxRadius * 0.50, rMax: maxRadius * 0.65, speedMul: 0.65 },
-        { count: 16, rMin: maxRadius * 0.72, rMax: maxRadius * 0.90, speedMul: 0.4 },
+        { count: 32, rMin: maxRadius * 0.26, rMax: maxRadius * 0.42, speedMul: 1.0 },
+        { count: 28, rMin: maxRadius * 0.50, rMax: maxRadius * 0.66, speedMul: 0.65 },
+        { count: 20, rMin: maxRadius * 0.72, rMax: maxRadius * 0.92, speedMul: 0.38 },
       ];
 
       layers.forEach(({ count, rMin, rMax, speedMul }, li) => {
         for (let i = 0; i < count; i++) {
+          const baseSpeed = (0.00022 + Math.random() * 0.00028) * speedMul;
+          const dir = Math.random() > 0.5 ? 1 : -1;
           particles.push({
             angle: Math.random() * Math.PI * 2,
             radius: rMin + Math.random() * (rMax - rMin),
-            speed: (0.0003 + Math.random() * 0.0004) * speedMul * (Math.random() > 0.5 ? 1 : -1),
-            size: 0.8 + Math.random() * 1.8,
-            alpha: 0.3 + Math.random() * 0.6,
+            speed: baseSpeed * dir,
+            targetSpeed: baseSpeed * dir,
+            size: 0.7 + Math.random() * 2.0,
+            alpha: 0.25 + Math.random() * 0.65,
             color: COLORS[Math.floor(Math.random() * COLORS.length)],
             layer: li,
           });
@@ -68,47 +72,58 @@ export default function ParticleCanvas() {
       const cy = canvas.height / 2;
 
       particles.forEach((p) => {
+        // Ease current speed toward target (fluid acceleration)
+        p.speed += (p.targetSpeed - p.speed) * 0.04;
         p.angle += p.speed;
+
         const x = cx + Math.cos(p.angle) * p.radius;
-        const y = cy + Math.sin(p.angle) * p.radius * 0.38; // flatten ellipse
+        const y = cy + Math.sin(p.angle) * p.radius * 0.36;
 
-        // Depth fade based on y position in ellipse
-        const depth = (Math.sin(p.angle) + 1) / 2; // 0 = back, 1 = front
+        // Depth: 0 = back, 1 = front
+        const depth = (Math.sin(p.angle) + 1) / 2;
         const layerAlpha = p.layer === 0 ? 1 : p.layer === 1 ? 0.75 : 0.5;
-        const finalAlpha = p.alpha * layerAlpha * (0.4 + depth * 0.6);
+        const finalAlpha = p.alpha * layerAlpha * (0.35 + depth * 0.65);
+        const finalSize = p.size * (0.55 + depth * 0.45);
 
+        // Core dot
         ctx.beginPath();
-        ctx.arc(x, y, p.size * (0.6 + depth * 0.4), 0, Math.PI * 2);
+        ctx.arc(x, y, finalSize, 0, Math.PI * 2);
         ctx.fillStyle = p.color;
         ctx.globalAlpha = finalAlpha;
         ctx.fill();
 
-        // Soft glow on front particles
-        if (depth > 0.7 && p.size > 1.5) {
+        // Soft radial glow on larger front particles
+        if (depth > 0.65 && p.size > 1.4) {
+          const glowR = finalSize * 3.5;
           ctx.beginPath();
-          ctx.arc(x, y, p.size * 3, 0, Math.PI * 2);
-          const grad = ctx.createRadialGradient(x, y, 0, x, y, p.size * 3);
-          grad.addColorStop(0, p.color + "60");
+          ctx.arc(x, y, glowR, 0, Math.PI * 2);
+          const grad = ctx.createRadialGradient(x, y, 0, x, y, glowR);
+          grad.addColorStop(0, p.color + "55");
           grad.addColorStop(1, p.color + "00");
           ctx.fillStyle = grad;
-          ctx.globalAlpha = finalAlpha * 0.5;
+          ctx.globalAlpha = finalAlpha * 0.45;
           ctx.fill();
         }
       });
 
       ctx.globalAlpha = 1;
-      animId = requestAnimationFrame(draw);
+      animIdRef.current = requestAnimationFrame(draw);
     }
 
     resize();
     init();
     draw();
 
-    const ro = new ResizeObserver(() => { resize(); init(); });
+    const ro = new ResizeObserver(() => {
+      cancelAnimationFrame(animIdRef.current);
+      resize();
+      init();
+      draw();
+    });
     ro.observe(canvas);
 
     return () => {
-      cancelAnimationFrame(animId);
+      cancelAnimationFrame(animIdRef.current);
       ro.disconnect();
     };
   }, []);

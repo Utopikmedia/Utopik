@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import { Inter, Syne } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import GlobalParticles from "@/components/GlobalParticles";
+import dynamic from "next/dynamic";
+
+const GlobalParticles = dynamic(() => import("@/components/GlobalParticles"), {
+  ssr: false,
+});
 
 const inter = Inter({
   subsets: ["latin"],
